@@ -11,7 +11,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     TypeOrmModule.forRoot({
       type: 'mongodb',
       entities: [join(__dirname, '**/**.entity{.ts,.js}')],
-      url: 'mongodb+srv://carlos:canunes20@cluster0.a9vwmjq.mongodb.net/nestjs?retryWrites=true&w=majority',
+      url: 'mongodb+srv://vercel-admin-user:canunes20@cluster0.a9vwmjq.mongodb.net/nestjs?retryWrites=true&w=majority',
       useNewUrlParser: true,
       synchronize: true,
       logging: true,
