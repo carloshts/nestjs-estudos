@@ -16,6 +16,8 @@ export class UserService {
 
   }
   create(createUserDto: CreateUserDto):Promise<User> {
+    const user:User = new User();
+    user.name = createUserDto.name
     return this.userRepository.save(createUserDto);
   }
 
