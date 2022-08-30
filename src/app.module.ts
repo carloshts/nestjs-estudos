@@ -10,11 +10,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
   imports: [
     TypeOrmModule.forRoot({
       type: 'mongodb',
-      url: 'mongodb+srv://vercel-admin-user:canunes20@cluster0.a9vwmjq.mongodb.net/?retryWrites=true&w=majority',
       entities: [join(__dirname, '**/**.entity{.ts,.js}')],
-      synchronize: true,
+      url: 'mongodb+srv://carlos:canunes20@cluster0.a9vwmjq.mongodb.net/nestjs?retryWrites=true&w=majority',
       useNewUrlParser: true,
+      synchronize: true,
       logging: true,
+      useUnifiedTopology: true,
     }),
     UserModule,
   ],
