@@ -1,6 +1,6 @@
 {
     "version": 2,
-    "name": "nestjs-now",
+    "name": "nestjs-estudos",
     "builds": [
       {
         "src": "dist/main.js",
