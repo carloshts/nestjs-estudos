@@ -25,7 +25,11 @@
     "@nestjs/core": "^9.0.0",
     "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^9.0.0",
+<<<<<<< HEAD
     "@nestjs/swagger": "^6.1.1",
+=======
+    "@nestjs/swagger": "^6.1.0",
+>>>>>>> bfde94636c355e6e8b55f4722668a78de5cbc34d
     "@nestjs/typeorm": "^9.0.1",
     "@types/mongodb": "^4.0.7",
     "mongodb": "^3.7.3",
