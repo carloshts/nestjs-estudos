@@ -12,7 +12,9 @@ async function bootstrap() {
         .addTag('users')
         .build();
     const document = swagger_1.SwaggerModule.createDocument(app, config);
-    swagger_1.SwaggerModule.setup('swagger', app, document);
+    swagger_1.SwaggerModule.setup('swagger', app, document, {
+        customCssUrl: 'src/assets/swagger-ui.css',
+    });
     app.use((req, res, next) => {
         res.header('Access-Control-Allow-Origin', '*');
         res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
