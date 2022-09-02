@@ -3,7 +3,10 @@ import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.enableCors({ origin: /.+/ });
+  app.enableCors({
+    origin: '*',
+    methods: ['POST', 'PUT', 'DELETE', 'GET', 'PATCH', 'OPTIONS'],
+  });
   const config = new DocumentBuilder()
     .setTitle('NestJS estudos')
     .setDescription('Api Rest de estudos em NestJS')
@@ -17,7 +20,7 @@ async function bootstrap() {
   //   res.header('Access-Control-Allow-Origin', '*');
   //   res.header(
   //     'Access-Control-Allow-Headers',
-  //     'Origin, X-Requested-With, Content-Type, Accept, x-access-token',
+  //     'Origin, X-Requested-With, Content-Type, Accept, x-access-token,delete,entries,foreach,get,has,keys,set,values,Authorization',
   //   );
   //   res.header(
   //     'Access-Control-Allow-Methods',
