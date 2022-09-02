@@ -16,7 +16,9 @@ async function bootstrap() {
         .addTag('users')
         .build();
     const document = swagger_1.SwaggerModule.createDocument(app, config);
-    swagger_1.SwaggerModule.setup('swagger', app, document);
+    swagger_1.SwaggerModule.setup('swagger', app, document, {
+        customCssUrl: `src/assets/swagger/swagger-ui.css`,
+    });
     await app.listen(process.env.PORT || 3000);
 }
 bootstrap();
