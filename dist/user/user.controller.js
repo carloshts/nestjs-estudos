@@ -17,12 +17,14 @@ const common_1 = require("@nestjs/common");
 const user_service_1 = require("./user.service");
 const create_user_dto_1 = require("./dto/create-user.dto");
 const update_user_dto_1 = require("./dto/update-user.dto");
+const swagger_1 = require("@nestjs/swagger");
 let UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
     }
-    create(createUserDto) {
-        return this.userService.create(createUserDto);
+    async create(createUserDto) {
+        const usuario = await this.userService.create(createUserDto);
+        return usuario;
     }
     findAll() {
         return this.userService.findAll();
@@ -33,24 +35,39 @@ let UserController = class UserController {
     update(id, updateUserDto) {
         return this.userService.update(id, updateUserDto);
     }
-    remove(id) {
-        return this.userService.remove(id);
+    async remove(id) {
+        return await this.userService.remove(id);
     }
 };
 __decorate([
+    (0, swagger_1.ApiOkResponse)({
+        description: 'Usuário salvo com sucesso!',
+        type: update_user_dto_1.UpdateUserDto,
+        isArray: false
+    }),
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_user_dto_1.CreateUserDto]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], UserController.prototype, "create", null);
 __decorate([
+    (0, swagger_1.ApiOkResponse)({
+        description: 'Lista de usuários!',
+        type: update_user_dto_1.UpdateUserDto,
+        isArray: true
+    }),
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], UserController.prototype, "findAll", null);
 __decorate([
+    (0, swagger_1.ApiOkResponse)({
+        description: 'Usuário unico!',
+        type: update_user_dto_1.UpdateUserDto,
+        isArray: false
+    }),
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
@@ -58,6 +75,11 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], UserController.prototype, "findOne", null);
 __decorate([
+    (0, swagger_1.ApiOkResponse)({
+        description: 'Usuário atualizado com sucesso!',
+        type: update_user_dto_1.UpdateUserDto,
+        isArray: false
+    }),
     (0, common_1.Patch)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
@@ -66,11 +88,16 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], UserController.prototype, "update", null);
 __decorate([
+    (0, swagger_1.ApiOkResponse)({
+        description: 'Usuário deletado com sucesso!',
+        type: update_user_dto_1.UpdateUserDto,
+        isArray: true
+    }),
     (0, common_1.Delete)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], UserController.prototype, "remove", null);
 UserController = __decorate([
     (0, common_1.Controller)('user'),

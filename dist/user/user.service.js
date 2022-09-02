@@ -23,7 +23,8 @@ let UserService = class UserService {
     }
     create(createUserDto) {
         const user = new user_entity_1.User();
-        user.name = createUserDto.name;
+        user.nome = createUserDto.nome;
+        user.senha = createUserDto.senha;
         return this.userRepository.save(createUserDto);
     }
     findAll() {
@@ -33,6 +34,10 @@ let UserService = class UserService {
         return this.userRepository.findOneBy({ _id: id });
     }
     update(id, updateUserDto) {
+        const user = new user_entity_1.User();
+        user._id = id;
+        user.nome = updateUserDto.nome;
+        user.senha = updateUserDto.senha;
         return this.userRepository.update({ _id: id }, updateUserDto);
     }
     remove(id) {

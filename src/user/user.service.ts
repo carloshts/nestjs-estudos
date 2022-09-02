@@ -17,7 +17,8 @@ export class UserService {
   }
   create(createUserDto: CreateUserDto):Promise<User> {
     const user:User = new User();
-    user.name = createUserDto.name
+    user.nome = createUserDto.nome;
+    user.senha = createUserDto.senha;
     return this.userRepository.save(createUserDto);
   }
 
@@ -30,6 +31,10 @@ export class UserService {
   }
 
   update(id: string, updateUserDto: UpdateUserDto) {
+    const user:User = new User();
+    user._id = id;
+    user.nome = updateUserDto.nome;
+    user.senha = updateUserDto.senha;
     return this.userRepository.update({_id:id},updateUserDto);
   }
 
