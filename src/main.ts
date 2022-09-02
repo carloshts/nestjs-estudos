@@ -14,9 +14,7 @@ async function bootstrap() {
     .addTag('users')
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('swagger', app, document, {
-    customCssUrl: `src/assets/swagger/swagger-ui.css`,
-  });
+  SwaggerModule.setup('swagger', app, document);
   // Habilita o CORS
   // app.use((req, res, next) => {
   //   res.header('Access-Control-Allow-Origin', '*');
