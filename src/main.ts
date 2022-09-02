@@ -12,6 +12,12 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   //app.enableCors();
   SwaggerModule.setup('swagger', app, document);
+  app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Accept');
+    next();
+  });
   await app.listen(process.env.PORT || 3000);
   //Forçando build dnv
 }
