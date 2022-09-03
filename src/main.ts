@@ -15,20 +15,6 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('swagger', app, document);
-  // Habilita o CORS
-  // app.use((req, res, next) => {
-  //   res.header('Access-Control-Allow-Origin', '*');
-  //   res.header(
-  //     'Access-Control-Allow-Headers',
-  //     'Origin, X-Requested-With, Content-Type, Accept, x-access-token,delete,entries,foreach,get,has,keys,set,values,Authorization',
-  //   );
-  //   res.header(
-  //     'Access-Control-Allow-Methods',
-  //     'GET, POST, PUT, DELETE, OPTIONS',
-  //   );
-  //   next();
-  // });
   await app.listen(process.env.PORT || 3000);
-  //Forçando build dnv
 }
 bootstrap();

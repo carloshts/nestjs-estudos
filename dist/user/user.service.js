@@ -33,21 +33,34 @@ let UserService = class UserService {
     }
     async findOne(id) {
         const _id = new mongodb_1.ObjectID(id);
-        return this.userRepository.findOne({ where: {
+        return this.userRepository.findOne({
+            where: {
                 _id: _id
-            } });
+            }
+        });
     }
     async update(id, updateUserDto) {
-        const user = new user_entity_1.User();
-        user._id = new mongodb_1.ObjectID(id);
-        user.nome = updateUserDto.nome;
-        user.senha = updateUserDto.senha;
-        await this.userRepository.updateOne({ _id: new mongodb_1.ObjectID(id) }, {
-            $set: user
-        });
-        return this.userRepository.findOne({ where: {
+        const user = await this.userRepository.findOne({
+            where: {
                 _id: new mongodb_1.ObjectID(id)
-            } });
+            }
+        });
+        if (user) {
+            user._id = new mongodb_1.ObjectID(id);
+            user.nome = updateUserDto.nome;
+            user.senha = updateUserDto.senha;
+            await this.userRepository.updateOne({ _id: new mongodb_1.ObjectID(id) }, {
+                $set: user
+            });
+            return this.userRepository.findOne({
+                where: {
+                    _id: new mongodb_1.ObjectID(id)
+                }
+            });
+        }
+        else {
+            return null;
+        }
     }
     remove(id) {
         return this.userRepository.delete({ _id: new mongodb_1.ObjectID(id) });
