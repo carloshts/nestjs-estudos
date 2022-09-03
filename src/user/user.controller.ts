@@ -1,3 +1,4 @@
+import { Mensagem } from './../commons/interfaces/mensagens';
 import { ObjectID } from 'typeorm';
 /* eslint-disable prettier/prettier */
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
@@ -38,7 +39,7 @@ export class UserController {
   })
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.userService.findOne(id);
+    return this.userService.findOne(id)
   }
 
   @ApiOkResponse({
@@ -53,12 +54,18 @@ export class UserController {
 
   @ApiOkResponse({
     description: 'Usuário deletado com sucesso!',
-    type: UpdateUserDto,
-    isArray: true
+    type: Mensagem,
+    isArray: false
   })
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    
-    return await this.userService.remove(id);
+    try {
+      const user = await this.userService.findOne(id);
+      if(user) await this.userService.remove(id);
+      else return new Mensagem("Usuário não encontrado")
+      return new Mensagem("Usuário deletado com sucesso")
+    } catch (error) {
+      return new Mensagem("Erro ao deletar usuário")
+    }
   }
 }

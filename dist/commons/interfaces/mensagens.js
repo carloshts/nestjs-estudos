@@ -8,27 +8,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.User = void 0;
-const typeorm_1 = require("typeorm");
-const mongodb_1 = require("mongodb");
-let User = class User {
-};
+exports.Mensagem = void 0;
+const swagger_1 = require("@nestjs/swagger");
+class Mensagem {
+    constructor(mensagem) {
+        this.mensagem = mensagem;
+    }
+}
 __decorate([
-    (0, typeorm_1.ObjectIdColumn)(),
-    __metadata("design:type", typeof (_a = typeof mongodb_1.ObjectID !== "undefined" && mongodb_1.ObjectID) === "function" ? _a : Object)
-], User.prototype, "_id", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
+    (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], User.prototype, "nome", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], User.prototype, "senha", void 0);
-User = __decorate([
-    (0, typeorm_1.Entity)()
-], User);
-exports.User = User;
-//# sourceMappingURL=user.entity.js.map
+], Mensagem.prototype, "mensagem", void 0);
+exports.Mensagem = Mensagem;
+//# sourceMappingURL=mensagens.js.map

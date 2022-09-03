@@ -1,5 +1,6 @@
+import { ObjectID } from 'mongodb';
 export declare class User {
-    _id: string;
+    _id: ObjectID;
     nome: string;
     senha: string;
 }

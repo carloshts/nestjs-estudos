@@ -13,6 +13,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
+const mensagens_1 = require("./../commons/interfaces/mensagens");
 const common_1 = require("@nestjs/common");
 const user_service_1 = require("./user.service");
 const create_user_dto_1 = require("./dto/create-user.dto");
@@ -36,7 +37,17 @@ let UserController = class UserController {
         return this.userService.update(id, updateUserDto);
     }
     async remove(id) {
-        return await this.userService.remove(id);
+        try {
+            const user = await this.userService.findOne(id);
+            if (user)
+                await this.userService.remove(id);
+            else
+                return new mensagens_1.Mensagem("Usuário não encontrado");
+            return new mensagens_1.Mensagem("Usuário deletado com sucesso");
+        }
+        catch (error) {
+            return new mensagens_1.Mensagem("Erro ao deletar usuário");
+        }
     }
 };
 __decorate([
@@ -90,8 +101,8 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiOkResponse)({
         description: 'Usuário deletado com sucesso!',
-        type: update_user_dto_1.UpdateUserDto,
-        isArray: true
+        type: mensagens_1.Mensagem,
+        isArray: false
     }),
     (0, common_1.Delete)(':id'),
     __param(0, (0, common_1.Param)('id')),

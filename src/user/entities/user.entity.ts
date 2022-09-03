@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Column, Entity, ObjectID, ObjectIdColumn } from 'typeorm';
-
+import { Column, Entity, ObjectIdColumn } from 'typeorm';
+import { ObjectID } from 'mongodb';
 @Entity()
 export class User {
   @ObjectIdColumn()
-  _id: string;
+  _id: ObjectID;
 
   @Column()
   nome: string;

@@ -17,6 +17,7 @@ const typeorm_1 = require("typeorm");
 const common_1 = require("@nestjs/common");
 const user_entity_1 = require("./entities/user.entity");
 const typeorm_2 = require("@nestjs/typeorm");
+const mongodb_1 = require("mongodb");
 let UserService = class UserService {
     constructor(userRepository) {
         this.userRepository = userRepository;
@@ -30,18 +31,26 @@ let UserService = class UserService {
     findAll() {
         return this.userRepository.find();
     }
-    findOne(id) {
-        return this.userRepository.findOneBy({ _id: id });
+    async findOne(id) {
+        const _id = new mongodb_1.ObjectID(id);
+        return this.userRepository.findOne({ where: {
+                _id: _id
+            } });
     }
-    update(id, updateUserDto) {
+    async update(id, updateUserDto) {
         const user = new user_entity_1.User();
-        user._id = id;
+        user._id = new mongodb_1.ObjectID(id);
         user.nome = updateUserDto.nome;
         user.senha = updateUserDto.senha;
-        return this.userRepository.update({ _id: id }, updateUserDto);
+        await this.userRepository.updateOne({ _id: new mongodb_1.ObjectID(id) }, {
+            $set: user
+        });
+        return this.userRepository.findOne({ where: {
+                _id: new mongodb_1.ObjectID(id)
+            } });
     }
     remove(id) {
-        return this.userRepository.delete({ _id: id });
+        return this.userRepository.delete({ _id: new mongodb_1.ObjectID(id) });
     }
 };
 UserService = __decorate([
