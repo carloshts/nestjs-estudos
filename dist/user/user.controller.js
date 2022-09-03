@@ -40,12 +40,29 @@ let UserController = class UserController {
             return new mensagens_1.Mensagem("Erro ao listar usuários");
         }
     }
+    findAllByFilter(nome) {
+        try {
+            return this.userService.findByFilter(nome);
+        }
+        catch (error) {
+            return new mensagens_1.Mensagem("Erro ao listar usuários");
+        }
+    }
     findOne(id) {
         try {
             return this.userService.findOne(id);
         }
         catch (error) {
             new mensagens_1.Mensagem("Erro ao pesquisar usuário por id");
+        }
+    }
+    getByNomeESenha(nome, senha) {
+        try {
+            return this.userService.findByNomeESenha(nome, senha);
+        }
+        catch (error) {
+            console.log(error);
+            return new mensagens_1.Mensagem("Erro ao pesquisar usuário por nome e senha");
         }
     }
     update(id, updateUserDto) {
@@ -96,16 +113,36 @@ __decorate([
 ], UserController.prototype, "findAll", null);
 __decorate([
     (0, swagger_1.ApiOkResponse)({
+        description: 'Lista de usuários por filtros!',
+        type: update_user_dto_1.UpdateUserDto,
+        isArray: true
+    }),
+    (0, common_1.Get)('filtrar'),
+    __param(0, (0, common_1.Query)('nome')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], UserController.prototype, "findAllByFilter", null);
+__decorate([
+    (0, swagger_1.ApiOkResponse)({
         description: 'Usuário unico!',
         type: update_user_dto_1.UpdateUserDto,
         isArray: false
     }),
-    (0, common_1.Get)(':id'),
+    (0, common_1.Get)('id/:id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], UserController.prototype, "findOne", null);
+__decorate([
+    (0, common_1.Get)('login'),
+    __param(0, (0, common_1.Query)("nome")),
+    __param(1, (0, common_1.Query)("senha")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", void 0)
+], UserController.prototype, "getByNomeESenha", null);
 __decorate([
     (0, swagger_1.ApiOkResponse)({
         description: 'Usuário atualizado com sucesso!',

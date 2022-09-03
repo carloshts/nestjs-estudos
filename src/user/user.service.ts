@@ -28,9 +28,23 @@ export class UserService {
 
   async findOne(id: string): Promise<User> {
     const _id = new ObjectID(id)
-    return this.userRepository.findOne({
+    return await this.userRepository.findOne({
       where: {
         _id: _id
+      }
+    })
+  }
+  async findByFilter(nome?:string):Promise<User[]>{
+    const query = new User();
+    if(nome) query.nome = nome
+    console.log(query)
+    return await this.userRepository.find({where:query})
+  }
+  async findByNomeESenha(nome:string,senha:string):Promise<User>{
+    return await this.userRepository.findOne({
+      where:{
+        nome:nome,
+        senha:senha
       }
     })
   }

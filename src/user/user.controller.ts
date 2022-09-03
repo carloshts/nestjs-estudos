@@ -1,7 +1,7 @@
 import { Mensagem } from './../commons/interfaces/mensagens';
 import { ObjectID } from 'typeorm';
 /* eslint-disable prettier/prettier */
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -41,13 +41,27 @@ export class UserController {
     }
     
   }
+  @ApiOkResponse({
+    description: 'Lista de usuários por filtros!',
+    type: UpdateUserDto,
+    isArray: true
+  })
+  @Get('filtrar')
+  findAllByFilter(@Query('nome') nome: string) {
+    try {
+      return this.userService.findByFilter(nome);
+    } catch (error) {
+      return new Mensagem("Erro ao listar usuários")
+    }
+    
+  }
 
   @ApiOkResponse({
     description: 'Usuário unico!',
     type: UpdateUserDto,
     isArray: false
   })
-  @Get(':id')
+  @Get('id/:id')
   findOne(@Param('id') id: string) {
     try {
       return this.userService.findOne(id)
@@ -56,7 +70,17 @@ export class UserController {
     }
     
   }
-
+  
+  @Get('login')
+  getByNomeESenha(@Query("nome") nome: string, @Query("senha") senha: string){
+    
+    try {
+      return this.userService.findByNomeESenha(nome,senha)
+    } catch (error) {
+      console.log(error)
+      return new Mensagem("Erro ao pesquisar usuário por nome e senha")
+    }
+  }
   @ApiOkResponse({
     description: 'Usuário atualizado com sucesso!',
     type: UpdateUserDto,
@@ -72,7 +96,7 @@ export class UserController {
     }
     
   }
-
+  
   @ApiOkResponse({
     description: 'Usuário deletado com sucesso!',
     type: Mensagem,

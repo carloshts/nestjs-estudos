@@ -33,9 +33,24 @@ let UserService = class UserService {
     }
     async findOne(id) {
         const _id = new mongodb_1.ObjectID(id);
-        return this.userRepository.findOne({
+        return await this.userRepository.findOne({
             where: {
                 _id: _id
+            }
+        });
+    }
+    async findByFilter(nome) {
+        const query = new user_entity_1.User();
+        if (nome)
+            query.nome = nome;
+        console.log(query);
+        return await this.userRepository.find({ where: query });
+    }
+    async findByNomeESenha(nome, senha) {
+        return await this.userRepository.findOne({
+            where: {
+                nome: nome,
+                senha: senha
             }
         });
     }
