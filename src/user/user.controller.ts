@@ -18,8 +18,13 @@ export class UserController {
   })
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
-    const usuario: UpdateUserDto = await this.userService.create(createUserDto);
-    return usuario;
+    try {
+      const usuario: UpdateUserDto = await this.userService.create(createUserDto);
+      return usuario;
+    } catch (error) {
+      return new Mensagem("Erro ao cadastrar usuário")
+    }
+    
   }
   
   @ApiOkResponse({
@@ -29,7 +34,12 @@ export class UserController {
   })
   @Get()
   findAll() {
-    return this.userService.findAll();
+    try {
+      return this.userService.findAll();
+    } catch (error) {
+      return new Mensagem("Erro ao listar usuários")
+    }
+    
   }
 
   @ApiOkResponse({
@@ -39,7 +49,12 @@ export class UserController {
   })
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.userService.findOne(id)
+    try {
+      return this.userService.findOne(id)
+    } catch (error) {
+      new Mensagem("Erro ao pesquisar usuário por id")
+    }
+    
   }
 
   @ApiOkResponse({
@@ -49,7 +64,13 @@ export class UserController {
   })
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(id, updateUserDto);
+    try {
+      return this.userService.update(id, updateUserDto);
+    } catch (error) {
+      console.log(error)
+      return new Mensagem("Erro ao atualizar")
+    }
+    
   }
 
   @ApiOkResponse({

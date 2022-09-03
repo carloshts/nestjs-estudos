@@ -24,17 +24,38 @@ let UserController = class UserController {
         this.userService = userService;
     }
     async create(createUserDto) {
-        const usuario = await this.userService.create(createUserDto);
-        return usuario;
+        try {
+            const usuario = await this.userService.create(createUserDto);
+            return usuario;
+        }
+        catch (error) {
+            return new mensagens_1.Mensagem("Erro ao cadastrar usuário");
+        }
     }
     findAll() {
-        return this.userService.findAll();
+        try {
+            return this.userService.findAll();
+        }
+        catch (error) {
+            return new mensagens_1.Mensagem("Erro ao listar usuários");
+        }
     }
     findOne(id) {
-        return this.userService.findOne(id);
+        try {
+            return this.userService.findOne(id);
+        }
+        catch (error) {
+            new mensagens_1.Mensagem("Erro ao pesquisar usuário por id");
+        }
     }
     update(id, updateUserDto) {
-        return this.userService.update(id, updateUserDto);
+        try {
+            return this.userService.update(id, updateUserDto);
+        }
+        catch (error) {
+            console.log(error);
+            return new mensagens_1.Mensagem("Erro ao atualizar");
+        }
     }
     async remove(id) {
         try {

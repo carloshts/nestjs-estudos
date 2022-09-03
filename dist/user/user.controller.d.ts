@@ -5,9 +5,9 @@ import { UpdateUserDto } from './dto/update-user.dto';
 export declare class UserController {
     private readonly userService;
     constructor(userService: UserService);
-    create(createUserDto: CreateUserDto): Promise<UpdateUserDto>;
-    findAll(): Promise<import("./entities/user.entity").User[]>;
+    create(createUserDto: CreateUserDto): Promise<UpdateUserDto | Mensagem>;
+    findAll(): Mensagem | Promise<import("./entities/user.entity").User[]>;
     findOne(id: string): Promise<import("./entities/user.entity").User>;
-    update(id: string, updateUserDto: UpdateUserDto): Promise<import("./entities/user.entity").User>;
+    update(id: string, updateUserDto: UpdateUserDto): Promise<import("./entities/user.entity").User> | Mensagem;
     remove(id: string): Promise<Mensagem>;
 }
